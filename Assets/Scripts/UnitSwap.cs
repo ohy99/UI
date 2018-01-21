@@ -21,23 +21,49 @@ public class UnitSwap : MonoBehaviour {
 	}
 
     public void ToggleOverlayCallback(Button OnClickSender)
-    {
-        overlayPanel.active = !overlayPanel.active;
-        Debug.Log(overlayPanel.active);
-        if (overlayPanel.active)
+    {  
+        if (overlayPanel.active == false)
         {
             //store the sender;
             this.sender = OnClickSender;
+            overlayPanel.active = !overlayPanel.active;
         }
         else
         {
-            //offing the overlay
-            if(OnClickSender.name.Substring(0, 4).Equals("Unit"))
+            if (OnClickSender.name.Substring(0, 4).Equals("Unit"))
             {
-                this.sender.image.sprite = OnClickSender.image.sprite;
+                GameObject[] units = GameObject.FindGameObjectsWithTag("SelectedUnit");
+                Debug.Log(units.Length);
+                bool isSelected = false;
+                foreach (GameObject u in units)
+                {
+                    if (u.Equals(sender))
+                        continue;
+                    Button butt = u.GetComponent<Button>();
+                    if (butt)
+                    {
+                        if (butt.image.sprite.Equals(OnClickSender.image.sprite))
+                        {
+                            //Is already selected by anotehr squad button
+                            isSelected = true;
+                            //do a swap
+                            butt.image.sprite = this.sender.image.sprite;
+                            this.sender.image.sprite = OnClickSender.image.sprite;
+                            overlayPanel.active = !overlayPanel.active;
+                            this.sender = null;
+                            Debug.Log("SELECTED");
+                            return;
+                        }
+                    }
+                }
+                if (!isSelected)
+                {
+                    this.sender.image.sprite = OnClickSender.image.sprite;
+                }
             }
+
+            overlayPanel.active = !overlayPanel.active;
             this.sender = null;
         }
-        Debug.Log(sender);
     }
 }
