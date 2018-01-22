@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
@@ -26,7 +27,6 @@ public class Health : MonoBehaviour
             TakeDamage(Random.Range(1, 5));
         }
 
-
     }
 
 
@@ -49,10 +49,12 @@ public class Health : MonoBehaviour
         if (EntityID.Equals("Player"))
         {
             //Lose game
+            SceneManager.LoadSceneAsync("Menu");
         }
         else
         {
             //Win game
+            SceneManager.LoadSceneAsync("Menu");
         }
 
       //  Destroy(gameObject);
