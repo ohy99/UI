@@ -1,27 +1,60 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 
-public class Health : MonoBehaviour {
+public class Health : MonoBehaviour
+{
+    public int startingHealth = 100;
+    public int currentHealth;
+    public Slider healthSlider;
+    public string EntityID = "";
 
-    [SerializeField]
-    float healthPoints = 10.0f;
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    bool isDead;
 
-    public void AddHealth(float amt)
+    void Awake()
     {
-        healthPoints += amt;
-        //more than maxhealth, equals max health
+        currentHealth = startingHealth;
+        isDead = false;
+    }
 
-        if (healthPoints <= 0)
-            Destroy(gameObject);
+
+    void Update()
+    {
+
+        if (Random.Range(0, 100) < 5)
+        {
+            TakeDamage(Random.Range(1, 5));
+        }
+
+
+    }
+
+
+    public void TakeDamage(int amount)
+    {
+
+        currentHealth -= amount;
+        healthSlider.value = currentHealth;
+
+        if (currentHealth <= 0 && !isDead)
+        {
+            Death();
+        }
+    }
+
+
+    void Death()
+    {
+        isDead = true;
+        if (EntityID.Equals("Player"))
+        {
+            //Lose game
+        }
+        else
+        {
+            //Win game
+        }
+
+      //  Destroy(gameObject);
     }
 }
