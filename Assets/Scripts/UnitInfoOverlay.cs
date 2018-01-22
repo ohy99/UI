@@ -12,7 +12,7 @@ public class UnitInfoOverlay : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        panel.active = false;
+        panel.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -24,14 +24,16 @@ public class UnitInfoOverlay : MonoBehaviour {
     {
         if (!panel.active)
         {
+            if (!caller.name.Contains("Unit"))
+                return;
             Debug.Log("pressle");
             unitImage.GetComponent<Image>().sprite = caller.image.sprite;
-            panel.active = true;
+            panel.SetActive(true);
         }
         else
         {
 
-            panel.active = false;
+            panel.SetActive(false);
         }
     }
 }
