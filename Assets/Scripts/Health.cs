@@ -21,10 +21,11 @@ public class Health : MonoBehaviour
 
     void Update()
     {
-
-        if (Random.Range(0, 100) < 5)
+        int rand = Random.Range(0, 100);
+        if (rand < 5)
         {
-            TakeDamage(Random.Range(1, 5));
+            int rand2 = Random.Range(1, 5);
+            TakeDamage(rand2);
         }
 
     }
@@ -34,7 +35,7 @@ public class Health : MonoBehaviour
     {
 
         currentHealth -= amount;
-        healthSlider.value = currentHealth;
+        healthSlider.value = ((float)currentHealth);
 
         if (currentHealth <= 0 && !isDead)
         {
