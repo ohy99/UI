@@ -59,4 +59,9 @@ public class Health : MonoBehaviour
 
       //  Destroy(gameObject);
     }
+
+    public void PlaySoundEffect(AudioSource audio)
+    {
+        audio.Play();
+    }
 }

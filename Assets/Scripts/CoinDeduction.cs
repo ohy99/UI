@@ -12,6 +12,7 @@ public class CoinDeduction : MonoBehaviour {
     double duration;
     double speed;
     bool isAnim;
+    float starting_y = 0.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -26,10 +27,15 @@ public class CoinDeduction : MonoBehaviour {
             if (elapsedTime >= duration)
                 Reset();
 
+
+            Vector3 temp = animPanel.transform.localPosition;
+
+            if (starting_y == 0.0f)
+                starting_y = temp.y;
+
+            temp.y += (float)(speed * Time.deltaTime);
             //WHY U NOT GOING UP
-            animPanel.transform.localPosition.Set(animPanel.transform.localPosition.x,
-                animPanel.transform.localPosition.y + (float)(speed * Time.deltaTime),
-                animPanel.transform.localPosition.z);
+            animPanel.transform.localPosition = temp;
         }
     }
 
@@ -40,6 +46,10 @@ public class CoinDeduction : MonoBehaviour {
         animPanel.SetActive(true);
         Text aText = animPanel.GetComponentInChildren<Text>();
         aText.text = "-" + value.ToString();
+
+        Vector3 temp = animPanel.transform.localPosition;
+        temp.y = starting_y;
+        animPanel.transform.localPosition = temp;
     }
 
     public void Reset()
